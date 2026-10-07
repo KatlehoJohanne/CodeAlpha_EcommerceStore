@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProWrestle Market — Real Wrestling Merchandise</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #e63946;
+      --primary-dark: #c1121f;
+      --dark: #16161d;
+      --darker: #0a0a0f;
+      --light: #f8f9fa;
+      --accent: #ffd166;
+      --accent-dark: #b8860b;
+      --muted: #8d99ae;
+      --aew: #b71c1c;
+      --wwe: #1565c0;
+      --njpw: #1b5e20;
+      --gold: #ffd700;
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: var(--darker);
+      color: var(--light);
+      line-height: 1.5;
+    }
+
+    /* --- Top Banner --- */
+    .top-banner {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--darker);
+    }
+
+    /* --- Navbar --- */
+    nav {
+      background: var(--dark);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid var(--primary);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .logo .pro {
+      color: var(--light);
+    }
+
+    .logo .wrestle {
+      color: var(--primary);
+    }
+
+    .logo .market {
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+      font-size: 0.9rem;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    .cart-badge {
+      background: var(--primary);
+      color: var(--light);
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    /* --- Hero --- */
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem 3.5rem;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(230, 57, 70, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(255, 209, 102, 0.08) 0%, transparent 50%),
+        linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(230, 57, 70, 0.03) 20px,
+        rgba(230, 57, 70, 0.03) 40px
+      );
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      position: relative;
+      line-height: 1.1;
+    }
+
+    .hero h1 .highlight {
+      color: var(--primary);
+    }
+
+    .hero h1 .gold-text {
+      color: var(--gold);
+      text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .hero p {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: var(--muted);
+      position: relative;
+    }
+
+    .hero .tagline {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.8rem;
+      background: var(--primary);
+      color: var(--light);
+      font-weight: 800;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      position: relative;
+    }
+
+    .hero .brands {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .brand-tag {
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .brand-tag.aew {
+      background: var(--aew);
+      color: var(--light);
+    }
+
+    .brand-tag.wwe {
+      background: var(--wwe);
+      color: var(--light);
+    }
+
+    .brand-tag.njpw {
+      background: var(--njpw);
+      color: var(--light);
+    }
+
+    .brand-tag.tna {
+      background: #4a148c;
+      color: var(--light);
+    }
+
+    .brand-tag.roh {
+      background: #b71c1c;
+      color: var(--light);
+      border: 2px solid var(--accent);
+    }
+
+    /* --- Section Headers --- */
+    .section-header {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 1rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-header h2 .icon {
+      color: var(--primary);
+    }
+
+    .section-header .subtitle {
+      color: var(--muted);
+      margin-top: 0.3rem;
+      font-size: 0.95rem;
+    }
+
+    .section-divider {
+      max-width: 1100px;
+      margin: 0 auto;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+    }
+
+    /* --- Product Grid --- */
+    .products {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--dark);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(230, 57, 70, 0.25);
+      border-color: var(--primary);
+    }
+
+    .card .img-box {
+      width: 100%;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+    }
+
+    .card .img-box .promo-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 0.2rem 0.7rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .img-box.aew-bg {
+      background: linear-gradient(135deg, #b71c1c, #4a0e0e);
+    }
+
+    .img-box.wwe-bg {
+      background: linear-gradient(135deg, #1565c0, #0d47a1);
+    }
+
+    .img-box.njpw-bg {
+      background: linear-gradient(135deg, #1b5e20, #0a3d0e);
+    }
+
+    .img-box.gold-bg {
+      background: linear-gradient(135deg, #ffd700, #8b6914);
+      color: var(--darker);
+    }
+
+    .img-box.dark-bg {
+      background: linear-gradient(135deg, #2b2d42, #16161d);
+    }
+
+    .img-box.purple-bg {
+      background: linear-gradient(135deg, #4a148c, #1a0033);
+    }
+
+    .promo-tag.aew {
+      background: rgba(183, 28, 28, 0.9);
+      color: var(--light);
+    }
+
+    .promo-tag.wwe {
+      background: rgba(21, 101, 192, 0.9);
+      color: var(--light);
+    }
+
+    .promo-tag.njpw {
+      background: rgba(27, 94, 32, 0.9);
+      color: var(--light);
+    }
+
+    .promo-tag.tna {
+      background: rgba(74, 20, 140, 0.9);
+      color: var(--light);
+    }
+
+    .promo-tag.roh {
+      background: rgba(183, 28, 28, 0.9);
+      color: var(--light);
+      border: 1px solid var(--accent);
+    }
+
+    .promo-tag.gold {
+      background: rgba(255, 215, 0, 0.9);
+      color: var(--darker);
+    }
+
+    .card .body {
+      padding: 1.2rem;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.3rem;
+      font-weight: 700;
+    }
+
+    .card .category {
+      font-size: 0.78rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .card .desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .card .price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card .price {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--primary);
+    }
+
+    .card .old-price {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: line-through;
+      margin-right: 0.5rem;
+    }
+
+    .card .btn {
+      display: block;
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.7rem;
+      background: var(--primary);
+      color: var(--light);
+      border: none;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .card .btn:hover {
+      background: var(--primary-dark);
+      transform: scale(1.02);
+    }
+
+    .card .btn:active {
+      transform: scale(0.98);
+    }
+
+    .card .btn.gold-btn {
+      background: var(--gold);
+      color: var(--darker);
+    }
+
+    .card .btn.gold-btn:hover {
+      background: var(--accent-dark);
+      color: var(--light);
+    }
+
+    .card .limited-badge {
+      display: inline-block;
+      margin-top: 0.6rem;
+      padding: 0.2rem 0.6rem;
+      background: rgba(255, 209, 102, 0.15);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* --- Spotlight Section --- */
+    .spotlight {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    .spotlight-card {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+      border-radius: 12px;
+      border: 1px solid var(--primary);
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .spotlight-card .spotlight-img {
+      flex: 0 0 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      background: linear-gradient(135deg, var(--gold), var(--accent-dark));
+      border-radius: 10px;
+      color: var(--darker);
+    }
+
+    .spotlight-card .spotlight-content {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .spotlight-card .spotlight-content h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: var(--gold);
+    }
+
+    .spotlight-card .spotlight-content p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .spotlight-card .spotlight-price {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--primary);
+    }
+
+    .spotlight-card .spotlight-buy {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.8rem 2rem;
+      background: var(--gold);
+      color: var(--darker);
+      border: none;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: transform 0.15s, background 0.2s;
+    }
+
+    .spotlight-card .spotlight-buy:hover {
+      transform: scale(1.03);
+      background: var(--accent-dark);
+      color: var(--light);
+    }
+
+    /* --- Footer --- */
+    footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      background: var(--dark);
+      border-top: 3px solid var(--primary);
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 2rem;
+    }
+
+    footer strong {
+      color: var(--primary);
+    }
+
+    footer .disclaimer {
+      margin-top: 0.8rem;
+      font-size: 0.75rem;
+      color: rgba(141, 153, 174, 0.6);
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      nav {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+      }
+      nav ul {
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .spotlight-card {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-banner">
+    Free shipping on championship belt orders over $100
+  </div>
+
+  <nav>
+    <div class="logo">
+      <span class="pro">Pro</span><span class="wrestle">Wrestle</span><span class="market">Market</span>
+    </div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">AEW</a></li>
+      <li><a href="#">WWE</a></li>
+      <li><a href="#">NJPW</a></li>
+      <li><a href="#">Belts</a></li>
+      <li><a href="#">Figures</a></li>
+      <li><a href="#">Cart <span class="cart-badge">0</span></a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>The Ultimate <span class="highlight">Pro Wrestling</span><br>Merch <span class="gold-text">Superstore</span></h1>
+    <p>Official-style gear from AEW, WWE, NJPW, TNA, and ROH — shirts, figures, belts, and more.</p>
+    <div class="tagline">Grab the brass ring before the bell rings</div>
+    <div class="brands">
+      <span class="brand-tag aew">AEW</span>
+      <span class="brand-tag wwe">WWE</span>
+      <span class="brand-tag njpw">NJPW</span>
+      <span class="brand-tag tna">TNA</span>
+      <span class="brand-tag roh">ROH</span>
+    </div>
+  </section>
+
+  <!-- AEW Section -->
+  <div class="section-header">
+    <h2><span class="icon">🔴</span> AEW Collection</h2>
+    <p class="subtitle">All Elite Wrestling merchandise — from Dynamite to Revolution</p>
+  </div>
+  <div class="section-divider"></div>
+  <section class="products">
+    <div class="grid">
+
+      <div class="card">
+        <div class="img-box aew-bg">
+          <span class="promo-tag aew">AEW</span>
+          👕
+        </div>
+        <div class="body">
+          <div class="category">T-Shirt</div>
+          <h3>"It's Wednesday, You Know What That Means" Tee</h3>
+          <p class="desc">Classic black tee with the iconic Dynamite opener. 100% cotton.</p>
+          <div class="price-row">
+            <div><span class="old-price">$34.99</span><span class="price">$27.99</span></div>
+          </div>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-box dark-bg">
+          <span class="promo-tag aew">AEW</span>
+          🤼
+        </div>
+        <div class="body">
+          <div class="category">Action Figure</div>
+          <h3>"The Ocho" Sammy Guevara — Unrivaled Series</h3>
+          <p class="desc">6-inch elite figure with ring gear and interchangeable hands.</p>
+          <div class="price-row">
+            <div><span class="price">$29.99</span></div>
+          </div>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-box aew-bg">
+          <span class="promo-tag aew">AEW</span>
+          🧢
+        </div>
+        <div class="body">
+          <div class="category">Headwear</div>
+          <h3>BCC — Blackpool Combat Club Beanie</h3>
+          <p class="desc">Snug black knit beanie with embroidered BCC hammer & anvil logo.</p>
+          <div class="price-row">
+            <div><span class="price">$22.99</span></div>
+          </div>
+          <span class="limited-badge">Limited Stock</span>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WWE Section -->
+  <div class="section-header">
+    <h2><span class="icon">🔵</span> WWE Collection</h2>
+    <p class="subtitle">The grandest stage — shirts, figures, and championship replicas</p>
+  </div>
+  <div class="section-divider"></div>
+  <section class="products">
+    <div class="grid">
+
+      <div class="card">
+        <div class="img-box wwe-bg">
+          <span class="promo-tag wwe">WWE</span>
+          👕
+        </div>
+        <div class="body">
+          <div class="category">T-Shirt</div>
+          <h3>"The Final Boss" Roman Reigns Acknowledge Tee</h3>
+          <p class="desc">Black tee with the iconic Acknowledge palm print. Tribal Chief approved.</p>
+          <div class="price-row">
+            <div><span class="price">$31.99</span></div>
+          </div>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-box wwe-bg">
+          <span class="promo-tag wwe">WWE</span>
+          🤖
+        </div>
+        <div class="body">
+          <div class="category">Action Figure</div>
+          <h3>Cody Rhodes — Undisputed WWE Figure</h3>
+          <p class="desc">6-inch figure with American Nightmare ring jacket and scarf accessory.</p>
+          <div class="price-row">
+            <div><span class="price">$34.99</span></div>
+          </div>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-box dark-bg">
+          <span class="promo-tag wwe">WWE</span>
+          🍻
+        </div>
+        <div class="body">
+          <div class="category">Glassware</div>
+          <h3>Stone Cold Steve Austin — Smasher Steiner Glass</h3>
+          <p class="desc">16oz pint glass. Guaranteed to be shattered against Raw.</p>
+          <div class="price-row">
+            <div><span class="old-price">$19.99</span><span class="price">$14.99</span></div>
+          </div>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Championship Belts Section -->
+  <div class="section-header">
+    <h2><span class="icon">🏆</span> Championship Replica Belts</h2>
+    <p class="subtitle">Hold the gold — museum-quality replica belts from every promotion</p>
+  </div>
+  <div class="section-divider"></div>
+  <section class="products">
+    <div class="grid">
+
+      <div class="card">
+        <div class="img-box gold-bg">
+          <span class="promo-tag gold">WWE</span>
+          🏆
+        </div>
+        <div class="body">
+          <div class="category">Replica Belt</div>
+          <h3>Undisputed WWE Universal Championship</h3>
+          <p class="desc">Full-size gold-plated replica with genuine leather strap. Engraved plates.</p>
+          <div class="price-row">
+            <div><span class="price">$449.99</span></div>
+          </div>
+          <span class="limited-badge">Free Shipping</span>
+          <button class="btn gold-btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-box gold-bg">
+          <span class="promo-tag aew">AEW</span>
+          🏆
+        </div>
+        <div class="body">
+          <div class="category">Replica Belt</div>
+          <h3>AEW World Championship Replica</h3>
+          <p class="desc">Full-size replica with textured leather strap and gold-tone faceplate.</p>
+          <div class="price-row">
+            <div><span class="price">$399.99</span></div>
+          </div>
+          <span class="limited-badge">Free Shipping</span>
+          <button class="btn gold-btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-box gold-bg">
+          <span class="promo-tag njpw">NJPW</span>
+          🏆
+        </div>
+        <div class="body">
+          <div class="category">Replica Belt</div>
+          <h3>IWGP Heavyweight Championship Replica</h3>
+          <p class="desc">The crown jewel of New Japan. Gold-tone plates with black leather strap.</p>
+          <div class="price-row">
+            <div><span class="old-price">$499.99</span><span class="price">$429.99</span></div>
+          </div>
+          <span class="limited-badge">Free Shipping</span>
+          <button class="btn gold-btn">Add to Cart</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NJPW & More Section -->
+  <div class="section-header">
+    <h2><span class="icon">🟢</span> NJPW, TNA & ROH</h2>
+    <p class="subtitle">Puroresu, Impact, and Honor — the best of the rest</p>
+  </div>
+  <div class="section-divider"></div>
+  <section class="products">
+    <div class="grid">
+
+      <div class="card">
+        <div class="img-box njpw-bg">
+          <span class="promo-tag njpw">NJPW</span>
+          👕
+        </div>
+        <div class="body">
+          <div class="category">T-Shirt</div>
+          <h3>Kazuchika Okada — "Rainmaker" Tee</h3>
+          <p class="desc">Green & gold tee with the Rainmaker dollar print. Lightweight cotton.</p>
+          <div class="price-row">
+            <div><span class="price">$29.99</span></div>
+          </div>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-box purple-bg">
+          <span class="promo-tag tna">TNA</span>
+          🎭
+        </div>
+        <div class="body">
+          <div class="category">Mask</div>
+          <h3>Rey Fenix — Lucha Bros Replica Mask</h3>
+          <p class="desc">Hand-stitched luchador mask. One size fits most. Red & black design.</p>
+          <div class="price-row">
+            <div><span class="price">$39.99</span></div>
+          </div>
+          <span class="limited-badge">Handmade</span>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-box njpw-bg">
+          <span class="promo-tag njpw">NJPW</span>
+          🤼
+        </div>
+        <div class="body">
+          <div class="category">Action Figure</div>
+          <h3>Will Ospreay — IWGP Figure Series</h3>
+          <p class="desc">6-inch figure with aerial pose stand and "The Aerial Assassin" trunks.</p>
+          <div class="price-row">
+            <div><span class="price">$32.99</span></div>
+          </div>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-box dark-bg">
+          <span class="promo-tag roh">ROH</span>
+          📀
+        </div>
+        <div class="body">
+          <div class="category">Blu-ray / DVD</div>
+          <h3>ROH Supercard of Honor — Complete Event</h3>
+          <p class="desc">3-disc set. Every match from the marquee ROH event. Bonus backstage footage.</p>
+          <div class="price-row">
+            <div><span class="old-price">$24.99</span><span class="price">$18.99</span></div>
+          </div>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-box purple-bg">
+          <span class="promo-tag tna">TNA</span>
+          👕
+        </div>
+        <div class="body">
+          <div class="category">T-Shirt</div>
+          <h3>"The Icon" Nick Aldis — TNA Tee</h3>
+          <p class="desc">Purple & black tee with the TNA Impact logo. Heavyweight cotton blend.</p>
+          <div class="price-row">
+            <div><span class="price">$25.99</span></div>
+          </div>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-box njpw-bg">
+          <span class="promo-tag njpw">NJPW</span>
+          🎫
+        </div>
+        <div class="body">
+          <div class="category">Collectible</div>
+          <h3>G1 Climax Finals — Framed Ticket Display</h3>
+          <p class="desc">Framed replica ticket from the G1 Climax finale. Includes event art print.</p>
+          <div class="price-row">
+            <div><span class="price">$27.99</span></div>
+          </div>
+          <span class="limited-badge">Collector's Item</span>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Spotlight -->
+  <div class="spotlight">
+    <div class="spotlight-card">
+      <div class="spotlight-img">🏆</div>
+      <div class="spotlight-content">
+        <h3>Megabundle: WWE + AEW + NJPW Belt Trio</h3>
+        <p>Get all three world championship replicas in one package — WWE Undisputed, AEW World, and IWGP Heavyweight. The ultimate display piece for any wrestling room. Genuine leather straps, gold-tone engraved plates, and a custom display case included.</p>
+        <div class="spotlight-price">$999.99</div>
+        <div>
+          <button class="spotlight-buy">Claim the Gold</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p><strong>ProWrestle Market</strong> — For the fans, by the fans.</p>
+    <p>&copy; 2026 ProWrestle Market. All rights reserved.</p>
+    <p class="disclaimer">This is a fan-made demo store. Product names and references are fictional and not affiliated with any wrestling promotion.</p>
+  </footer>
+
+</body>
+</html>
